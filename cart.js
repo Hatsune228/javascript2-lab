@@ -2,7 +2,7 @@ import Product from "./product.js";
 
 export default class Cart {
     constructor() {
-        this.items = new Map(); 
+        this.items = new Map();
     }
 
     addProduct(productId) {
