@@ -5,19 +5,22 @@ import Data from "./data.js";
 const data = new Data("https://dummyjson.com/products");
 const cart = new Cart();
 
-app.cart = cart; 
-app.products = await data.refreshData(); 
+const app = window.app || {};
 
-let productsHTML = "";
-app.products.forEach((prod) => {
-    const product = new Product(prod);
-    productsHTML += product.render();
-});
+const initializeApp = async () => {
+    app.cart = cart;
+    app.products = await data.refreshData();
 
-document.getElementById("prodSection").innerHTML = productsHTML;
+    const productsHTML = Array.from(app.products.values())
+        .map(prod => new Product(prod).render())
+        .join("");
 
-// Сагсыг дахин сэргээх функц
+    document.getElementById("prodSection").innerHTML = productsHTML;
+    app.refreshCart();
+};
+
 app.refreshCart = () => {
     document.getElementById("cart").innerHTML = app.cart.render();
 };
-app.refreshCart();
+
+initializeApp();
