@@ -4,11 +4,14 @@ export default class Product {
         this.name = prod.title;
         this.price = prod.price;
         this.description = prod.description;
+        this.thumbnail = prod.thumbnail;  
     }
+
 
     renderCompact() {
         return `<span>${this.name} (${this.price}₮)</span>`;
     }
+
 
     render() {
         return `
