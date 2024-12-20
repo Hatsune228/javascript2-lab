@@ -5,6 +5,7 @@ import Data from "./data.js";
 const data = new Data("https://dummyjson.com/products");
 const cart = new Cart();
 
+
 const app = window.app || {};
 
 const initializeApp = async () => {
@@ -18,7 +19,6 @@ const initializeApp = async () => {
     document.getElementById("prodSection").innerHTML = productsHTML;
     app.refreshCart();
 };
-
 app.refreshCart = () => {
     document.getElementById("cart").innerHTML = app.cart.render();
 };
