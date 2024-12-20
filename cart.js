@@ -2,7 +2,7 @@ import Product from "./product.js";
 
 export default class Cart {
     constructor() {
-        this.items = new Map(); // ID болон тоо хэмжээг хадгална.
+        this.items = new Map(); 
     }
 
     addProduct(productId) {
@@ -30,16 +30,17 @@ export default class Cart {
             return `<p>Сагс хоосон байна.</p>`;
         }
 
-        let cartHTML = "";
-        this.items.forEach((quantity, id) => {
-            const product = new Product(app.products.get(id));
-            cartHTML += `
-                <div style="display: flex; justify-content: space-between; margin-bottom: 1vh;">
-                    ${product.renderCompact()}
-                    <span> x${quantity}</span>
-                    <button onclick="app.cart.removeProduct(${id}); app.refreshCart();">❌</button>
-                </div>`;
-        });
+        const cartHTML = Array.from(this.items.entries())
+            .map(([id, quantity]) => {
+                const product = new Product(app.products.get(id));
+                return `
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1vh;">
+                        ${product.renderCompact()}
+                        <span> x${quantity}</span>
+                        <button onclick="app.cart.removeProduct(${id}); app.refreshCart();">❌</button>
+                    </div>`;
+            })
+            .join("");
 
         return cartHTML;
     }
